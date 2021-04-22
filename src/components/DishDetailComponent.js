@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 function RenderDish({dish}) {
@@ -20,10 +21,10 @@ function RenderDish({dish}) {
 
 }
 
-function RenderComments({dish}) {
-    var comments = <div></div>;
-    if(dish) {
-        comments = dish.comments.map((comment) => {
+function RenderComments({comments}) {
+    var commentsRender = <div></div>;
+    if(comments) {
+        commentsRender = comments.map((comment) => {
             return (
                 <li key={comment.id}>
                     {comment.comment}
@@ -37,7 +38,7 @@ function RenderComments({dish}) {
         <Card>
             <CardBody>
             <CardTitle>Comments</CardTitle>
-            <ul>{comments}</ul>
+            <ul>{commentsRender}</ul>
             </CardBody>
         </Card>
     );
@@ -48,11 +49,22 @@ const  DishDetail = (props) => {
     return (
         <div className="container">
             <div className="row">
-                <div  className="col-12 col-md-5 m-1">
+                <Breadcrumb>
+
+                    <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>{props.dish.name}</h3>
+                    <hr />
+                </div>                
+            </div>
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
                     <RenderDish dish={props.dish} />
                 </div>
-                <div  className="col-12 col-md-5 m-1">
-                    <RenderComments dish={props.dish} />
+                <div className="col-12 col-md-5 m-1">
+                    <RenderComments comments={props.comments} />
                 </div>
             </div>
         </div>
