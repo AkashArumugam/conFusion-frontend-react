@@ -22,7 +22,7 @@ function RenderDish({dish}) {
 
 }
 
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
     var commentsRender = <div></div>;
     if(comments) {
         commentsRender = comments.map((comment) => {
@@ -40,7 +40,7 @@ function RenderComments({comments}) {
             <CardBody>
             <CardTitle>Comments</CardTitle>
                 <ul>{commentsRender}</ul>
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
             </CardBody>
         </Card>
     );
@@ -66,7 +66,10 @@ const  DishDetail = (props) => {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id}
+                    />
                 </div>
             </div>
         </div>
