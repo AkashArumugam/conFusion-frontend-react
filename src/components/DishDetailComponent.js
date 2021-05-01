@@ -2,10 +2,9 @@ import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
-
+import { Loading } from './LoadingComponent';
 
 function RenderDish({dish}) {
-
     if (dish != null)
         return(
             <Card>
@@ -19,7 +18,6 @@ function RenderDish({dish}) {
     return(
         <div></div>
     );
-
 }
 
 function RenderComments({comments, addComment, dishId}) {
@@ -47,7 +45,24 @@ function RenderComments({comments, addComment, dishId}) {
 }
 
 const  DishDetail = (props) => {
-
+    if (props.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    if (props.errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="container">
             <div className="row">
