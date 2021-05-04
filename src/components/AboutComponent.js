@@ -1,14 +1,27 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function About(props) {
+    if(props.leaders.isLoading) {
+        return (
+            <Loading />
+        );
+    }
 
-    const leaders = props.leaders.map((leader) => {
+    if(props.leaders.errMess) {
+        return (
+            <h4>{props.leaders.errMess}</h4>
+        );
+    }
+
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
             <Media className="mb-5">
                 <Media left className="mt-2">
-                    <img src={leader.image} alt="leader img"></img>
+                    <img src={baseUrl + leader.image} alt="leader img"></img>
                 </Media>
                 <Media body className="ml-5">
                     <Media heading>{leader.name}</Media>
