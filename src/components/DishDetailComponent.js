@@ -21,13 +21,14 @@ function RenderDish({dish}) {
     );
 }
 
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
     var commentsRender = <div></div>;
     if(comments) {
         commentsRender = comments.map((comment) => {
             return (
                 <li key={comment.id}>
-                    {comment.comment}
+                    <strong>{comment.author}</strong>
+                    <br />{comment.comment}
                     <br />---------&gt;
                     {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}    
                 </li>
@@ -39,7 +40,7 @@ function RenderComments({comments, addComment, dishId}) {
             <CardBody>
             <CardTitle>Comments</CardTitle>
                 <ul>{commentsRender}</ul>
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </CardBody>
         </Card>
     );
@@ -83,7 +84,7 @@ const  DishDetail = (props) => {
                 </div>
                 <div className="col-12 col-md-5 m-1">
                     <RenderComments comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         dishId={props.dish.id}
                     />
                 </div>
